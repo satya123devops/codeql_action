@@ -33,7 +33,7 @@ const run = async (): Promise<void> => {
             + "Open Alert severity level is "+ data.rule.security_severity_level)
          })
          //FAIL the process here
-         core.setFailed("FAIL")
+         core.setFailed("Action Failed due to above issues ☝")
       } else {
         var dismissedAlerts = data.filter(function(data : any){
           return data.state == 'dismissed';
@@ -47,30 +47,25 @@ const run = async (): Promise<void> => {
           if(falsePositiveAlerts.length > 0){
             if(dismissedAlerts.length === falsePositiveAlerts.length){
               //PASS the process here
-              core.info("PASS")
+              core.info("Skipping the Action.... because Alerts are marked as FalsePositive")
             } else {
               //FAIL the process here
-              core.setFailed("FAIL")
+              core.setFailed("Dismissed Alerts are more than the FalsePositive Alerts")
             }
           } else {
             //FAIL the process here
-            core.setFailed("FAIL")
+            core.setFailed("Action Failed due to Dismissed Alerts present and needs to be fixed")
           } 
         } else {
           //PASS the process here
-          core.info("PASS")
+          core.info("No Dismissed Alerts found")
         }
       }
     } else {
       //PASS the process here
-      core.info("No data found")
-      core.info("PASS")
+      core.info("No Open Alerts found")
     }
-    //core.info("No Open PR's found Created by Dependabot Checking for Closed PR's Merged Status...")
-    //core.info("Action triggers from Branch: " + process.env.GITHUB_REF?.replace("refs/heads/",''))
-    //core.warning("Default_branch is " + data.default_branch)
    
-        
     //     // const combinePullsParams = await getInputs();
     //     // const { githubToken } = combinePullsParams;
     //     // const githubClient = getOctokit(githubToken);

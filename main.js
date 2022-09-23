@@ -76,7 +76,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                                 + "Open Alert severity level is " + data.rule.security_severity_level);
                         });
                         //FAIL the process here
-                        core.setFailed("FAIL");
+                        core.setFailed("Action Failed due to above issues ☝");
                     }
                     else {
                         dismissedAlerts = data.filter(function (data) {
@@ -91,28 +91,27 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             if (falsePositiveAlerts.length > 0) {
                                 if (dismissedAlerts.length === falsePositiveAlerts.length) {
                                     //PASS the process here
-                                    core.info("PASS");
+                                    core.info("Skipping the Action.... because Alerts are marked as FalsePositive");
                                 }
                                 else {
                                     //FAIL the process here
-                                    core.setFailed("FAIL");
+                                    core.setFailed("Dismissed Alerts are more than the FalsePositive Alerts");
                                 }
                             }
                             else {
                                 //FAIL the process here
-                                core.setFailed("FAIL");
+                                core.setFailed("Action Failed due to Dismissed Alerts present and needs to be fixed");
                             }
                         }
                         else {
                             //PASS the process here
-                            core.info("PASS");
+                            core.info("No Dismissed Alerts found");
                         }
                     }
                 }
                 else {
                     //PASS the process here
-                    core.info("No data found");
-                    core.info("PASS");
+                    core.info("No Open Alerts found");
                 }
                 return [3 /*break*/, 5];
             case 4:
