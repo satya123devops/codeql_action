@@ -105,7 +105,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                         }
                         else {
                             //PASS the process here
-                            core.info("PASS");
+                            core.setFailed("FAIL");
                         }
                     }
                 }
