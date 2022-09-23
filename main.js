@@ -53,68 +53,66 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             case 1:
                 combinePullsParams = _a.sent();
                 githubToken = combinePullsParams.githubToken;
-                console.log("starttt");
-                console.log(process.env.GITHUB_API_URL);
-                console.log("".concat(process.env.GITHUB_API_URL, "/repos/").concat(process.env.GITHUB_REPOSITORY, "/code-scanning/alerts?ref=main"));
-                console.log(process.env);
+                core.info("Started Analysing CodeQL Reports....");
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, axios_1["default"].get("".concat(process.env.GITHUB_API_URL, "/repos/").concat(process.env.GITHUB_REPOSITORY, "/code-scanning/alerts?ref=main"), {
+                return [4 /*yield*/, axios_1["default"].get("".concat(process.env.GITHUB_API_URL, "/repos/").concat(process.env.GITHUB_REPOSITORY, "/code-scanning/alerts?ref=").concat(process.env.GITHUB_REF_NAME), {
                         headers: { Authorization: "Bearer ".concat(githubToken), Accept: 'application/json' }
                     })];
             case 3:
                 data = (_a.sent()).data;
-                // const { data } = (await axios.get(`https://api.github.com/repos/satya123devops/Code-Pipeline-Demo-After/code-scanning/alerts?ref=main`, {
-                //   headers: { Authorization: `Bearer ${githubToken}`, Accept: 'application/json' },
-                // }));
-                //console.log(data)
                 if (data.length > 0) {
                     openAlerts = data.filter(function (data) {
                         return data.state == 'open';
                     });
                     //console.log(openAlerts)
                     if (openAlerts.length > 0) {
-                        console.log("There is/are " + openAlerts.length + " Open Alerts");
+                        core.info("There is/are " + openAlerts.length + " Open Alerts");
                         openAlerts.forEach(function (data) {
-                            console.log("Open Alert name is " + data.rule.name + ","
+                            core.warning("Open Alert name is " + data.rule.name + ","
                                 + "Open Alert description is " + data.rule.description + ","
                                 + "Open Alert severity is " + data.rule.severity + ","
                                 + "Open Alert severity level is " + data.rule.security_severity_level);
                         });
                         //FAIL the process here
-                        console.log("FAIL");
+                        core.setFailed("FAIL");
                     }
                     else {
                         dismissedAlerts = data.filter(function (data) {
                             return data.state == 'dismissed';
                         });
-                        console.log("There is/are " + dismissedAlerts.length + " Dismissed Alerts");
+                        core.info("There is/are " + dismissedAlerts.length + " Dismissed Alerts");
                         if (dismissedAlerts.length > 0) {
                             falsePositiveAlerts = dismissedAlerts.filter(function (data) {
                                 return data.dismissed_reason == 'false positive';
                             });
-                            console.log("There is/are " + falsePositiveAlerts.length + " False Positive Alerts");
+                            core.info("There is/are " + falsePositiveAlerts.length + " False Positive Alerts");
                             if (falsePositiveAlerts.length > 0) {
                                 if (dismissedAlerts.length === falsePositiveAlerts.length) {
                                     //PASS the process here
-                                    console.log("PASS");
+                                    core.info("PASS");
                                 }
                                 else {
                                     //FAIL the process here
-                                    console.log("FAIL");
+                                    core.setFailed("FAIL");
                                 }
                             }
                             else {
                                 //PASS the process here
-                                console.log("PASS");
+                                core.info("PASS");
                             }
                         }
                         else {
                             //PASS the process here
-                            console.log("PASS");
+                            core.info("PASS");
                         }
                     }
+                }
+                else {
+                    //PASS the process here
+                    core.info("No data found");
+                    core.info("PASS");
                 }
                 return [3 /*break*/, 5];
             case 4:
