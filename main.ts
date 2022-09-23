@@ -13,7 +13,7 @@ process.on('unhandledRejection', handleError);
 const run = async (): Promise<void> => {
   const combinePullsParams = await getInputs();
   const { githubToken } = combinePullsParams;
-  
+  console.log("starttt")
   try {
     const { data } = (await axios.get(`${process.env.GITHUB_API_URL}/repos/${process.env.GITHUB_REPOSITORY}/code-scanning/alerts?ref=main`, {
         headers: { Authorization: `Bearer ${githubToken}`, Accept: 'application/json' },

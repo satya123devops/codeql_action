@@ -53,6 +53,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             case 1:
                 combinePullsParams = _a.sent();
                 githubToken = combinePullsParams.githubToken;
+                console.log("starttt");
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);
