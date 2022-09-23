@@ -53,12 +53,12 @@ const run = async (): Promise<void> => {
               core.setFailed("FAIL")
             }
           } else {
-            //PASS the process here
-            core.info("PASS")
+            //FAIL the process here
+            core.setFailed("FAIL")
           } 
         } else {
           //PASS the process here
-          core.setFailed("FAIL")
+          core.info("PASS")
         }
       }
     } else {
@@ -66,7 +66,11 @@ const run = async (): Promise<void> => {
       core.info("No data found")
       core.info("PASS")
     }
+    //core.info("No Open PR's found Created by Dependabot Checking for Closed PR's Merged Status...")
+    //core.info("Action triggers from Branch: " + process.env.GITHUB_REF?.replace("refs/heads/",''))
+    //core.warning("Default_branch is " + data.default_branch)
    
+        
     //     // const combinePullsParams = await getInputs();
     //     // const { githubToken } = combinePullsParams;
     //     // const githubClient = getOctokit(githubToken);

@@ -99,13 +99,13 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                                 }
                             }
                             else {
-                                //PASS the process here
-                                core.info("PASS");
+                                //FAIL the process here
+                                core.setFailed("FAIL");
                             }
                         }
                         else {
                             //PASS the process here
-                            core.setFailed("FAIL");
+                            core.info("PASS");
                         }
                     }
                 }
