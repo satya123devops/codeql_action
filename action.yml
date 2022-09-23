@@ -1,0 +1,13 @@
+name: "Combine Dependabot Pull Requests"
+description: "Combine multiple Dependabot PRs into a single PR to simplify dependency updates"
+branding:
+  icon: "git-merge"
+  color: "blue"
+inputs:
+  githubToken:
+    description: "The GitHub token used to create an authenticated client"
+    default: ${{ github.token }}
+    required: true
+runs:
+  using: "node16"
+  main: "main.js"
