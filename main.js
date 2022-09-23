@@ -54,6 +54,9 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 combinePullsParams = _a.sent();
                 githubToken = combinePullsParams.githubToken;
                 console.log("starttt");
+                console.log(process.env.GITHUB_API_URL);
+                console.log("".concat(process.env.GITHUB_API_URL, "/repos/").concat(process.env.GITHUB_REPOSITORY, "/code-scanning/alerts?ref=main"));
+                console.log(process.env);
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);

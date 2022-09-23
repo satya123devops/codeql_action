@@ -14,6 +14,9 @@ const run = async (): Promise<void> => {
   const combinePullsParams = await getInputs();
   const { githubToken } = combinePullsParams;
   console.log("starttt")
+  console.log(process.env.GITHUB_API_URL)
+  console.log(`${process.env.GITHUB_API_URL}/repos/${process.env.GITHUB_REPOSITORY}/code-scanning/alerts?ref=main`)
+  console.log(process.env)
   try {
     const { data } = (await axios.get(`${process.env.GITHUB_API_URL}/repos/${process.env.GITHUB_REPOSITORY}/code-scanning/alerts?ref=main`, {
         headers: { Authorization: `Bearer ${githubToken}`, Accept: 'application/json' },
